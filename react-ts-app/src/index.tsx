@@ -18,14 +18,12 @@ const user: User = {
   avatarUrl: "https://placehold.jp/150x150.png"
 }
 
-function getGreeting(user: User) {
-  if(user){
-    return <h1>hello, {formatName(user)}!</h1>
-  }
-  return <h1>hello, stranger!</h1>
+function getGreeting() {
+  const greetingName = user? formatName(user): "stranger";
+  return <h1>hello, {greetingName}!</h1>
 }
 
-const elementGreeting = getGreeting(user);
+const elementGreeting = getGreeting();
 const elementImg = <img src={user.avatarUrl} alt="test" />
 const elementCreateElement = React.createElement(
   "h1",
