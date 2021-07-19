@@ -5,7 +5,11 @@ import Clock from './component/Clock';
 
 
 ReactDOM.render(
-  <Clock/>,
+  <div>
+    <Clock/>
+    <Clock/>
+    <Clock/>
+  </div>,
   document.getElementById("root")
 )
 
