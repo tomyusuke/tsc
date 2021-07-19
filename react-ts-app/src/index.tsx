@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import App from './App';
+import Clock from './component/Clock';
 
 
 ReactDOM.render(
-  <App/>,
+  <Clock/>,
   document.getElementById("root")
 )
 
