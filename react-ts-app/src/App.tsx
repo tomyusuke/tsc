@@ -51,18 +51,18 @@ const elementCreateElement = React.createElement(
 )
 
 function App(){
-	return (
-		<div>
+  return (
+    <div>
     <div id="1">{elementGreeting}</div>
     <div id="2">{elementImg}</div>
     <div id="3">{elementCreateElement}</div>
     <div id="4"></div>
     <div id="5">
-			<WelcomeFunc name="tom" />
-			<WelcomeFunc name="matsu" />
-			<WelcomeFunc name="yus" />
-		</div>
-  	</div>
-	);
+      <WelcomeFunc name="tom" />
+      <WelcomeFunc name="matsu" />
+      <WelcomeFunc name="yus" />
+      </div>
+    </div>
+  );
 }
 export default App;

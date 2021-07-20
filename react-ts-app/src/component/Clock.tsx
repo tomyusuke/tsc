@@ -5,29 +5,29 @@ type Props = {}
 type State = {date : Date}
 class Clock extends React.Component<Props, State> {
 
-	timerID: number;
+  timerID: number;
 
   constructor(props: Props) {
-    super(props);
+   super(props);
     this.state = {date: new Date()};
-		this.timerID = 0;
+    this.timerID = 0;
   }
 
-	componentDidMount(){
-		this.timerID = window.setInterval(
-			() => this.tick(),
-			1000
-		);
-	}
-	componentWillUnmount(){
-		clearInterval(this.timerID);
-	}
+  componentDidMount(){
+    this.timerID = window.setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+  componentWillUnmount(){
+    clearInterval(this.timerID);
+  }
 
-	tick(){
-		this.setState({
-			date: new Date()
-		});
-	}
+  tick(){
+    this.setState({
+      date: new Date()
+    });
+  }
 
   render() {
     return (
