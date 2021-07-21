@@ -1,3 +1,29 @@
+.todolist {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.todo_container {
+  padding: 16px;
+}
+
 .done {
-  opacity: 0.5;
+  opacity: 0.3;
+}
+
+.todo {
+  border: solid;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 8px 0;
+  display: flex;
+}
+
+.todo > div {
+  margin: 0 16px;
+}
+
+.btn_delete {
+  margin-left: auto;
 }

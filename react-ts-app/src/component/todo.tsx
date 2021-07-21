@@ -48,23 +48,23 @@ export const TodoList = () => {
   }
 
   return (
-    <div>
-      <div>
+    <div className = "todolist">
+      <h1 className = "title">TODOLIST</h1>
+      <div className = "input_container">
         <input type="text" value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
         <button onClick={() => OnClickAddTodo()}>追加</button>
       </div>
-      <div>
-        <div>
-          {todos.map((todo: Todo) => {
-            return(
-              <div key = {todo.id} className = {todo.doneflg? "done": ""}>
-                <div><button onClick={()=>{doneTodo(todo.id)}}>✔</button></div>
-                <div>{todo.title}</div>
-                <div><button onClick={()=>{deleteTodo(todo.id)}}>削除</button></div>
-              </div>
-            )
-          })}
-        </div>
+      <hr />
+      <div className = "todo_container">
+        {todos.map((todo: Todo) => {
+          return(
+             <div key = {todo.id} className = {todo.doneflg? "todo done": "todo"}>
+              <button className = "btn_done" onClick={()=>{doneTodo(todo.id)}}>✔</button>
+              <div>{todo.title}</div>
+              <button className = "btn_delete" onClick={()=>{deleteTodo(todo.id)}}>削除</button>
+            </div>
+          )
+        })}
       </div>
     </div>
   );
