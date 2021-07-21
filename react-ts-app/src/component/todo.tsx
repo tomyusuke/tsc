@@ -1,71 +1,88 @@
 import { useState } from 'react';
-import "../styles/todo.css"
+import '../styles/todo.css';
+
+type Todo = {
+  id: number;
+  title: string;
+  isFinished: boolean;
+};
 
 export const TodoList = () => {
+  const [todos, setTodos] = useState<Todo[]>([
+    {
+      id: 0,
+      title: 'title1',
+      isFinished: false,
+    },
+  ]);
 
-  type Todo = {
-    id : number
-    title : string
-    doneflg : boolean
-  };
+  const [inputVal, setInputVal] = useState<string>('');
 
-  const [todos, setTodos] = useState<Todo[]>([{
-    id : 0,
-    title : "title1",
-    doneflg : false
-  }])
-
-  const [inputVal, setInputVal] = useState<string>("")
-
-  const OnClickAddTodo = () => {
-    if(inputVal===""){return}
+  const onClickAddTodo = () => {
+    if (inputVal === '') {
+      return;
+    }
     const i = new Date().getTime();
     const todolist = todos;
     todolist.push({
-      id : i,
-      title : inputVal,
-      doneflg : false
-    })
-    setInputVal("")
-    setTodos(todolist)
-  }
+      id: i,
+      title: inputVal,
+      isFinished: false,
+    });
+    setInputVal('');
+    setTodos(todolist);
+  };
 
-  const doneTodo = (key : Todo["id"]) => {
-    const remainingTodos =todos.map((todo:Todo)=>{
-      if(todo.id === key){
-        todo.doneflg = !todo.doneflg;
+  const doneTodo = (key: Todo['id']) => {
+    const remainingTodos = todos.map((todo: Todo) => {
+      if (todo.id === key) {
+        todo.isFinished = !todo.isFinished;
       }
-      return todo
-    })
-    setTodos(remainingTodos)
-  }
+      return todo;
+    });
+    setTodos(remainingTodos);
+  };
 
-  const  deleteTodo = (key: Todo["id"]) => {
-    const remainingTodos =todos.filter((todo:Todo)=>{
-      return todo.id !== key
-    })
-    setTodos(remainingTodos)
-  }
+  const deleteTodo = (key: Todo['id']) => {
+    const remainingTodos = todos.filter((todo: Todo) => {
+      return todo.id !== key;
+    });
+    setTodos(remainingTodos);
+  };
 
   return (
-    <div className = "todolist">
-      <h1 className = "title">TODOLIST</h1>
-      <div className = "input_container">
+    <div className="todolist">
+      <h1 className="title">TODOLIST</h1>
+      <div className="input_container">
         <input type="text" value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
-        <button onClick={() => OnClickAddTodo()}>追加</button>
+        <button onClick={() => onClickAddTodo()}>追加</button>
       </div>
       <hr />
-      <div className = "todo_container">
+      <div className="todo_container">
         {todos.map((todo: Todo) => {
-          return(
-             <div key = {todo.id} className = {todo.doneflg? "todo done": "todo"}>
-              <button className = "btn_done" onClick={()=>{doneTodo(todo.id)}}>✔</button>
+          return (
+            <div key={todo.id} className={todo.isFinished ? 'todo done' : 'todo'}>
+              <button
+                className="btn_done"
+                onClick={() => {
+                  doneTodo(todo.id);
+                }}
+              >
+                ✔
+              </button>
               <div>{todo.title}</div>
-              <button className = "btn_delete" onClick={()=>{deleteTodo(todo.id)}}>削除</button>
+              <button
+                className="btn_delete"
+                onClick={() => {
+                  deleteTodo(todo.id);
+                }}
+              >
+                削除
+              </button>
             </div>
-          )
+          );
         })}
       </div>
     </div>
   );
-}
+};

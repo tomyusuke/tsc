@@ -4,13 +4,12 @@ import reportWebVitals from './reportWebVitals';
 import Clock from './component/Clock';
 import { TodoList } from './component/todo';
 
-
 ReactDOM.render(
   <div>
-    <TodoList/>
+    <TodoList />
   </div>,
-  document.getElementById("root")
-)
+  document.getElementById('root')
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
