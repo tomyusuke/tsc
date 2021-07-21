@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import '../styles/todo.css';
 
 type Todo = {
@@ -18,6 +18,10 @@ export const TodoList = () => {
 
   const [inputVal, setInputVal] = useState<string>('');
 
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputVal(e.target.value);
+  };
+
   const onClickAddTodo = () => {
     if (inputVal === '') {
       return;
@@ -35,10 +39,12 @@ export const TodoList = () => {
 
   const doneTodo = (key: Todo['id']) => {
     const remainingTodos = todos.map((todo: Todo) => {
-      if (todo.id === key) {
-        todo.isFinished = !todo.isFinished;
-      }
-      return todo;
+      const isFinish = todo.id === key ? !todo.isFinished : todo.isFinished;
+      const newTodo = {
+        ...todo,
+        isFinished: isFinish,
+      };
+      return newTodo;
     });
     setTodos(remainingTodos);
   };
@@ -54,7 +60,7 @@ export const TodoList = () => {
     <div className="todolist">
       <h1 className="title">TODOLIST</h1>
       <div className="input_container">
-        <input type="text" value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
+        <input type="text" value={inputVal} onChange={onChangeInput} />
         <button onClick={() => onClickAddTodo()}>追加</button>
       </div>
       <hr />
