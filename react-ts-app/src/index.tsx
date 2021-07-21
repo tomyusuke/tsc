@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import Clock from './component/Clock';
+import { TodoList } from './component/todo';
 
 
 ReactDOM.render(
   <div>
-    <Clock/>
-    <Clock/>
-    <Clock/>
+    <TodoList/>
   </div>,
   document.getElementById("root")
 )
