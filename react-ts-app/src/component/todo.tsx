@@ -1,3 +1,4 @@
+import { exit } from 'process';
 import { useState, ChangeEvent } from 'react';
 import '../styles/todo.css';
 
@@ -22,19 +23,19 @@ export const TodoList = () => {
     setInputVal(e.target.value);
   };
 
-  const onClickAddTodo = () => {
-    if (inputVal === '') {
-      return;
+  const submitFormAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (inputVal !== '') {
+      const i = new Date().getTime();
+      const todolist = todos;
+      todolist.push({
+        id: i,
+        title: inputVal,
+        isFinished: false,
+      });
+      setInputVal('');
+      setTodos(todolist);
     }
-    const i = new Date().getTime();
-    const todolist = todos;
-    todolist.push({
-      id: i,
-      title: inputVal,
-      isFinished: false,
-    });
-    setInputVal('');
-    setTodos(todolist);
   };
 
   const doneTodo = (key: Todo['id']) => {
@@ -60,8 +61,10 @@ export const TodoList = () => {
     <div className="todolist">
       <h1 className="title">TODOLIST</h1>
       <div className="input_container">
-        <input type="text" value={inputVal} onChange={onChangeInput} />
-        <button onClick={() => onClickAddTodo()}>追加</button>
+        <form onSubmit={submitFormAddTodo}>
+          <input type="text" value={inputVal} onChange={onChangeInput} />
+          <button>追加</button>
+        </form>
       </div>
       <hr />
       <div className="todo_container">
