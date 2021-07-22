@@ -39,10 +39,10 @@ export const TodoList = () => {
 
   const doneTodo = (key: Todo['id']) => {
     const remainingTodos = todos.map((todo: Todo) => {
-      const isFinish = todo.id === key ? !todo.isFinished : todo.isFinished;
+      const isFinished = todo.id === key ? !todo.isFinished : todo.isFinished;
       const newTodo = {
         ...todo,
-        isFinished: isFinish,
+        isFinished,
       };
       return newTodo;
     });
