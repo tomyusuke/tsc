@@ -1,4 +1,3 @@
-import { exit } from 'process';
 import { useState, ChangeEvent } from 'react';
 import '../styles/todo.css';
 
