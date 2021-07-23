@@ -25,17 +25,18 @@ export const TodoList = () => {
 
   const submitFormAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (inputVal !== '') {
-      const i = new Date().getTime();
-      const todolist = todos;
-      todolist.push({
-        id: i,
-        title: inputVal,
-        isFinished: false,
-      });
-      setInputVal('');
-      setTodos(todolist);
+    if (inputVal === '') {
+      return;
     }
+    const i = new Date().getTime();
+    const todolist = todos;
+    todolist.push({
+      id: i,
+      title: inputVal,
+      isFinished: false,
+    });
+    setInputVal('');
+    setTodos(todolist);
   };
 
   const doneTodo = (key: Todo['id']) => {
