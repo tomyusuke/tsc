@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useContext, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { TodosContext } from './TodoApp';
 
 export const TodoInput = () => {
