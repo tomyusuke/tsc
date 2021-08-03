@@ -7,12 +7,13 @@ import { todoReducer } from './todoReducer';
 import { initialState, State } from './state';
 import { Actions } from './actions';
 
-export const TodosContext = React.createContext(
-  {} as {
-    state: State;
-    dispatch: Dispatch<Actions>;
-  }
-);
+export const TodosContext = React.createContext<{
+  state: State;
+  dispatch: Dispatch<Actions>;
+}>({
+  state: initialState,
+  dispatch: () => undefined,
+});
 
 export const TodoApp = () => {
   const [state, dispatch] = useReducer(todoReducer, initialState);
