@@ -27,3 +27,15 @@
 .btn_delete {
   margin-left: auto;
 }
+
+.tab_container {
+  margin-top: 32px;
+  border-bottom: solid darkgray;
+}
+.tab_container .tab {
+  margin: 8px;
+}
+
+.tab_container .selected {
+  outline: 3px solid darkgrey;
+}

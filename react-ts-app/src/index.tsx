@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import Clock from './component/Clock';
-import { TodoList } from './component/todo';
+import { TodoApp } from './component/TodoApp';
 
 ReactDOM.render(
   <div>
-    <TodoList />
+    <TodoApp />
   </div>,
   document.getElementById('root')
 );
