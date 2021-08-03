@@ -1,33 +1,23 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useReducer, Dispatch } from 'react';
 import { TodoTab } from './TodoTab';
 import '../styles/todo.css';
 import { TodoInput } from './TodoInput';
-
-export type Todo = {
-  id: number;
-  title: string;
-  isFinished: boolean;
-};
+import { todoReducer } from './todoReducer';
+import { initialState, State } from './state';
+import { Actions } from './actions';
 
 export const TodosContext = React.createContext(
   {} as {
-    todos: Todo[];
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+    state: State;
+    dispatch: Dispatch<Actions>;
   }
 );
 
 export const TodoApp = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: 0,
-      title: 'title1',
-      isFinished: false,
-    },
-  ]);
-
+  const [state, dispatch] = useReducer(todoReducer, initialState);
   return (
-    <TodosContext.Provider value={{ todos, setTodos }}>
+    <TodosContext.Provider value={{ state, dispatch }}>
       <TodoInput />
       <TodoTab />
     </TodosContext.Provider>

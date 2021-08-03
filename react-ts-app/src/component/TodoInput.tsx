@@ -2,9 +2,7 @@ import { useContext, useRef } from 'react';
 import { TodosContext } from './TodoApp';
 
 export const TodoInput = () => {
-  const context = useContext(TodosContext);
-  const todos = context.todos;
-  const setTodos = context.setTodos;
+  const { dispatch } = useContext(TodosContext);
   const inputRef = useRef<HTMLInputElement>({} as HTMLInputElement);
 
   const submitFormAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
@@ -12,15 +10,15 @@ export const TodoInput = () => {
     if (inputRef.current.value === '') {
       return;
     }
-    const i = new Date().getTime();
-    const todolist = [...todos];
-    todolist.push({
-      id: i,
-      title: inputRef.current.value,
-      isFinished: false,
+    const id = new Date().getTime();
+    dispatch({
+      type: 'AddTodo',
+      payload: {
+        id,
+        title: inputRef.current.value,
+      },
     });
     inputRef.current.value = '';
-    setTodos(todolist);
   };
 
   return (

@@ -1,36 +1,30 @@
 import { useContext } from 'react';
-import { Todo, TodosContext } from './TodoApp';
+import { TodosContext } from './TodoApp';
 import * as React from 'react';
+import { Todo } from './state';
 
 type Props = {
   isFinished: boolean;
 };
 
 export const TodoList: React.FC<Props> = ({ isFinished }) => {
-  const context = useContext(TodosContext);
-  const todos = context.todos;
-  const displayTodos = context.todos.filter((todo: Todo) => {
+  const { state, dispatch } = useContext(TodosContext);
+  const displayTodos = state.todos.filter((todo: Todo) => {
     return todo.isFinished === isFinished;
   });
-  const setTodos = context.setTodos;
 
-  const finishTodo = (key: Todo['id']) => {
-    const remainingTodos = todos.map((todo: Todo) => {
-      const isFinished = todo.id === key ? !todo.isFinished : todo.isFinished;
-      const newTodo = {
-        ...todo,
-        isFinished,
-      };
-      return newTodo;
+  const finishTodo = (id: Todo['id']) => {
+    dispatch({
+      type: 'FinishTodo',
+      payload: { id },
     });
-    setTodos(remainingTodos);
   };
 
-  const deleteTodo = (key: Todo['id']) => {
-    const remainingTodos = todos.filter((todo: Todo) => {
-      return todo.id !== key;
+  const deleteTodo = (id: Todo['id']) => {
+    dispatch({
+      type: 'DeleteTodo',
+      payload: { id },
     });
-    setTodos(remainingTodos);
   };
 
   return (
