@@ -1,0 +1,38 @@
+version: '3'
+services:
+  app:
+    # 起動イメージ
+    image: node:12.14-stretch-slim
+    # 環境変数
+    environment:
+      - DEBUG=app:*
+      - PORT=8080
+      - DB_URL=postgresql://superuser:superuserpass@database:5432/db-sample
+    tty: true
+    # ホスト側のポート：コンテナのポート
+    ports:
+      - '3000:3000'
+    # ホスト側のsrcをコンテナのappにマウント
+    volumes:
+      - ./src:/app
+    # 起動時のカレントフォルダ
+    working_dir: /app
+    # 起動後に実行するコマンド
+    command: sh -c 'npx tsc; npm run dev'
+    depends_on:
+      - database
+  database:
+    image: postgres:12-alpine
+    ports:
+      - "57001:5432"
+    volumes:
+      - .:/app:cached
+      #- ./.docker/postgresql.conf:/etc/postgresql/postgresql.conf
+    working_dir: /app
+    environment:
+      - POSTGRES_INITDB_ARGS="--no-locale"
+      - POSTGRES_USER=superuser
+      - POSTGRES_PASSWORD=superuserpass
+      - POSTGRES_DB=db-sample
+
+    restart: always
