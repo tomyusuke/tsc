@@ -3,7 +3,6 @@ import { createConnection } from 'typeorm';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { Request, Response } from 'express';
-import { Routes } from './routes';
 import { User } from './entity/User';
 import { UserController } from './controller/UserController';
 
