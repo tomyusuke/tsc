@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import { useContext, useRef } from 'react';
 import { TodosContext } from './TodoApp';
 
@@ -21,11 +22,15 @@ export const TodoInput = () => {
     inputRef.current.value = '';
   };
 
+  const Test = css({
+    color: 'red',
+  });
+
   return (
     <div className="input_container">
       <form onSubmit={submitFormAddTodo}>
         {<input ref={inputRef} type="text" />}
-        <button>追加</button>
+        <button css={Test}>追加</button>
       </form>
     </div>
   );

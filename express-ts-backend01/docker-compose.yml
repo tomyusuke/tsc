@@ -1,0 +1,32 @@
+version: '3'
+services:
+  server:
+    image: node:14.17-stretch-slim
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app:cached
+    working_dir: /app
+    environment:
+      - DEBUG=*
+      - DATABASE_URL=postgresql://test:test@postgres:5432/test
+    command: 'yarn start'
+    restart: always
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:12-alpine
+    ports:
+      - '57002:5432'
+    volumes:
+      - .:/app:cached
+      - test_db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_INITDB_ARGS="--no-locale"
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=test
+
+volumes:
+  test_db:
+    external: true
