@@ -5,6 +5,7 @@ import * as bodyParser from 'body-parser';
 import { Request, Response } from 'express';
 import { User } from './entity/User';
 import { UserController } from './controller/UserController';
+import { router as userRouter } from './router/userRouter';
 
 createConnection()
   .then(async (connection) => {
@@ -13,8 +14,8 @@ createConnection()
     app.use(bodyParser.json());
 
     // register express routes from defined application routes
-    const user = require('./router/userRouter');
-    app.use('/user', user);
+    //const user = require('./router/userRouter');
+    app.use('/user', userRouter);
 
     // setup express app here
     // ...
