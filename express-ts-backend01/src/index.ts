@@ -1,7 +1,8 @@
 import { createConnection } from 'typeorm';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import { router as userRouter } from './router/userRouter';
+import { router as userRouter } from './router/userAccountRouter';
+import { todoRouter } from './router/todoRouter';
 
 createConnection()
   .then(async (connection) => {
@@ -12,6 +13,7 @@ createConnection()
     // register express routes from defined application routes
     //const user = require('./router/userRouter');
     app.use('/user', userRouter);
+    app.use('/todo', todoRouter);
 
     // setup express app here
     // ...
