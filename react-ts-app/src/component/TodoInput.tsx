@@ -1,9 +1,12 @@
 import { css } from '@emotion/react';
 import { useContext, useRef } from 'react';
-import { TodosContext } from './TodoApp';
+import { Todo, TodosContext } from '../reducer/todoReducer';
+import axios from 'axios';
+import { usersContext } from '../reducer/userReducer';
 
 export const TodoInput = () => {
-  const { dispatch } = useContext(TodosContext);
+  const { todoDispatch } = useContext(TodosContext);
+  const { userState } = useContext(usersContext);
   const inputRef = useRef<HTMLInputElement>({} as HTMLInputElement);
 
   const submitFormAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
@@ -11,26 +14,28 @@ export const TodoInput = () => {
     if (inputRef.current.value === '') {
       return;
     }
-    const id = new Date().getTime();
-    dispatch({
-      type: 'AddTodo',
-      payload: {
-        id,
+    axios
+      .post<Todo>(`http://localhost:3001/todo/create/${userState.selectedUser.id}`, {
         title: inputRef.current.value,
-      },
-    });
+      })
+      .then((res) => {
+        const { title, id } = res.data;
+        todoDispatch({
+          type: 'AddTodo',
+          payload: {
+            id,
+            title,
+          },
+        });
+      });
     inputRef.current.value = '';
   };
-
-  const Test = css({
-    color: 'red',
-  });
 
   return (
     <div className="input_container">
       <form onSubmit={submitFormAddTodo}>
         {<input ref={inputRef} type="text" />}
-        <button css={Test}>追加</button>
+        <button>追加</button>
       </form>
     </div>
   );
