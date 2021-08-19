@@ -3,7 +3,7 @@ services:
   server:
     image: node:14.17-stretch-slim
     ports:
-      - '3000:3000'
+      - '3001:3001'
     volumes:
       - .:/app:cached
     working_dir: /app
