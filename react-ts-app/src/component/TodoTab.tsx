@@ -13,6 +13,7 @@ export const TodoTab = () => {
               <span
                 className={'tab ' + tab + (tab === selectTab ? ' selected' : '')}
                 onClick={() => setSelectTab(tab)}
+                key={tab}
               >
                 {tab}
               </span>

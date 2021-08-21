@@ -1,27 +1,42 @@
-import { useContext } from 'react';
-import { TodosContext } from './TodoApp';
+import { useContext, useEffect } from 'react';
+import { TodosContext } from '../reducer/todoReducer';
 import * as React from 'react';
 import { Todo } from './state';
+import axios from 'axios';
+import { usersContext } from '../reducer/userReducer';
 
 type Props = {
   isFinished: boolean;
 };
 
 export const TodoList: React.FC<Props> = ({ isFinished }) => {
-  const { state, dispatch } = useContext(TodosContext);
-  const displayTodos = state.todos.filter((todo: Todo) => {
+  const { todoState, todoDispatch } = useContext(TodosContext);
+  const { userState } = useContext(usersContext);
+
+  useEffect(() => {
+    if (userState.selectedUser.id) {
+      axios
+        .get<Todo[]>(`http://localhost:3001/todo/user/${userState.selectedUser.id}`)
+        .then((todos) => {
+          todoDispatch({ type: 'SetTodo', payload: { todos: todos.data } });
+          console.log(todos);
+        });
+    }
+  }, [userState]);
+
+  const displayTodos = todoState.todos.filter((todo: Todo) => {
     return todo.isFinished === isFinished;
   });
 
-  const finishTodo = (id: Todo['id']) => {
-    dispatch({
+  const finishTodo = (id: Todo['id'], isFinished: Todo['isFinished']) => {
+    todoDispatch({
       type: 'FinishTodo',
-      payload: { id },
+      payload: { id, isFinished },
     });
   };
 
   const deleteTodo = (id: Todo['id']) => {
-    dispatch({
+    todoDispatch({
       type: 'DeleteTodo',
       payload: { id },
     });
@@ -35,7 +50,7 @@ export const TodoList: React.FC<Props> = ({ isFinished }) => {
             <button
               className="btn_done"
               onClick={() => {
-                finishTodo(todo.id);
+                finishTodo(todo.id, todo.isFinished);
               }}
             >
               ✔
