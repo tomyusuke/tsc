@@ -15,7 +15,21 @@ export class UserAccountService {
     return this.repo.find();
   }
 
-  async create(data: UserAccountDto) {
+  async one(id: string): Promise<UserAccount> {
+    return this.repo.findOne(id);
+  }
+
+  async create(data: UserAccountDto): Promise<UserAccount> {
     return this.repo.save(data);
+  }
+
+  async delete(id: string): Promise<UserAccount> {
+    const user = await this.repo.findOne(id);
+    return this.repo.remove(user);
+  }
+
+  async update(id: string, data: UserAccountDto): Promise<UserAccount> {
+    const user = await this.repo.findOne(id);
+    return this.repo.save({ ...user, ...data });
   }
 }

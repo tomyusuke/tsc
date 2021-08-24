@@ -1,0 +1,48 @@
+@baseurl = http://localhost:3002
+@targetId = c4d5fa54-456b-4cf2-890a-0c6e136ec2f4
+@targetIdForJson = "c4d5fa54-456b-4cf2-890a-0c6e136ec2f4"
+@contentType = Content-Type: application/json
+@random = {{$randomInt 0 300}}
+
+GET  {{baseurl}}/user-account
+###
+GET  {{baseurl}}/user-account/{{targetId}}
+###
+POST {{baseurl}}/user-account/create
+{{contentType}}
+
+{
+  "firstName": "TEST",
+  "lastName":"test",
+  "age":{{random}}
+}
+###
+DELETE {{baseurl}}/user-account/{{targetId}}
+
+###
+PUT {{baseurl}}/user-account/{{targetId}}
+{{contentType}}
+
+{
+  "firstName": "UPDATE1",
+  "lastName":"update1",
+  "age":{{random}}
+}
+
+###
+POST  {{baseurl}}/todo/create
+{{contentType}}
+
+{
+  "title":"test5" ,
+  "isFinished": false,
+  "userAccountId":"{{targetId}}"
+}
+
+###
+GET  {{baseurl}}/todo/{{targetId}}
+{{contentType}}
+
+###
+DELETE {{baseurl}}/todo/{{targetId}}
+{{contentType}}
